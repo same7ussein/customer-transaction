@@ -1,0 +1,132 @@
+section {
+  padding: 15px;
+  background-image: url(../../assets/aaabstract.webp);
+  background-size: cover;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: hidden;
+  ::ng-deep {
+    .p-datatable {
+      border-radius: 10px !important;
+    }
+    .p-datatable-scrollable {
+      background-color: transparent;
+    }
+  }
+}
+
+:host ::ng-deep .p-datatable {
+  width: 100%;
+  backdrop-filter: blur(15px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+:host ::ng-deep .p-datatable-header {
+  background-color: transparent;
+  color: #fff;
+}
+:host ::ng-deep .p-datatable-thead {
+  position: static;
+  background-color: transparent;
+  color: #fff;
+}
+:host ::ng-deep .p-datatable-thead tr th {
+  background-color: transparent;
+  color: #fff;
+}
+:host
+  ::ng-deep
+  .p-datatable-thead
+  tr
+  th
+  .p-icon-wrapper
+  .p-sortable-column-icon {
+  background-color: transparent;
+  color: #fff;
+}
+
+:host ::ng-deep .p-datatable tr {
+  background-color: transparent;
+  color: #fff;
+}
+:host ::ng-deep .p-datatable-header {
+  border: none;
+  outline: none;
+}
+:host ::ng-deep .p-inputtext {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+::ng-deep .p-inputtext.input-filter {
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid #fff;
+  width: 200px;
+}
+
+::ng-deep .p-icon-field-left > .p-inputtext.input-filter {
+  padding-left: 15px;
+}
+
+::ng-deep .p-icon-field-left > .p-inputtext.input-filter.input-icon {
+  padding-left: 2.5rem;
+}
+
+:host ::ng-deep .p-inputtext::placeholder {
+  color: #fff;
+}
+:host ::ng-deep .pi-search {
+  color: #fff;
+}
+:host ::ng-deep .p-paginator {
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+:host ::ng-deep .p-paginator-rpp-options {
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+:host ::ng-deep .p-ripple {
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+:host ::ng-deep .p-ripple.p-highlight {
+  color: #fff;
+  backdrop-filter: blur(15px);
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+}
+:host ::ng-deep .p-ripple.p-dropdown-item {
+  backdrop-filter: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+:host ::ng-deep .p-dropdown-panel {
+  color: #fff;
+  backdrop-filter: blur(15px);
+  background-color: rgba(0, 0, 0, 0.7);
+  border: none;
+}
+:host ::ng-deep .p-datatable > .p-datatable-wrapper {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(59, 4, 4);
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

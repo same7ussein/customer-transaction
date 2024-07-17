@@ -1,0 +1,62 @@
+<section class="d-lg-flex align-items-lg-center">
+    <div class="row g-3">
+        <div class="col-lg-6">
+            <p-table [value]="filteredTransactions" #dt2 dataKey="id" [rows]="5" [rowsPerPageOptions]="[5, 15, 30,60]"
+                [loading]="loading" [paginator]="true" [globalFilterFields]="['customer_name']" [scrollable]="true"
+                scrollHeight="400px">
+                <ng-template pTemplate="caption">
+                    <div class="d-flex gap-2 flex-wrap gap-1">
+                        <p-iconField iconPosition="left" class="ml-auto">
+                            <p-inputIcon>
+                                <i class="pi pi-search"></i>
+                            </p-inputIcon>
+                            <input pInputText type="text"
+                                class="p-inputtext p-component p-element input-filter input-icon" [(ngModel)]="filter"
+                                (input)="dt2.filterGlobal(filter, 'contains')" placeholder="Search by Name"
+                                autocomplete="off" />
+                        </p-iconField>
+                        <p-iconField class="ml-auto">
+                            <input pInputText type="text" id="minAmount"
+                                class="p-inputtext p-component p-element input-filter" [(ngModel)]="minAmount"
+                                placeholder="Enter min amount" autocomplete="off" />
+                        </p-iconField>
+                        <p-iconField class="ml-auto">
+                            <input pInputText class="p-inputtext p-component p-element input-filter" type="text"
+                                id="maxAmount" [(ngModel)]="maxAmount" placeholder="Enter max amount"
+                                autocomplete="off"/>
+                        </p-iconField>
+                        <button class="ml-auto btn btn-success" (click)="filterByAmountRange()">Filter</button>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="customer_name" style="min-width:11rem">
+                            Name <p-sortIcon field="customer_name" />
+                        </th>
+                        <th pSortableColumn="date" style="min-width:11rem">
+                            Date <p-sortIcon field="date" />
+                        </th>
+                        <th pSortableColumn="amount" style="min-width:11rem">
+                            Amount <p-sortIcon field="amount" />
+                        </th>
+                        <th style="min-width:11rem">
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-transcation>
+                    <tr>
+                        <td>{{ transcation.customer_name }}</td>
+                        <td>{{ transcation.date }}</td>
+                        <td>{{ transcation.amount }}</td>
+                        <td> <button class="btn btn-success" (click)="onRowSelect(transcation.customer_id)"> show
+                                Graph</button></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+        <div class="col-lg-6">
+            <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
+        </div>
+    </div>
+</section>
