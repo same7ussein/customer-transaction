@@ -1,6 +1,6 @@
 section {
   padding: 15px;
-  background-image: url(../../assets/aaabstract.webp);
+  background-image: url(../../assets/bg.webp);
   background-size: cover;
   width: 100%;
   min-height: 100vh;
@@ -116,6 +116,18 @@ section {
   backdrop-filter: blur(15px);
   background-color: rgba(0, 0, 0, 0.7);
   border: none;
+}
+
+.stat-item {
+  color: #fff;
+  backdrop-filter: blur(15px);
+  background-color: rgba(0, 0, 0, 0.23);
+  border: none;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  width: 250px;
+  text-align: center;
 }
 :host ::ng-deep .p-datatable > .p-datatable-wrapper {
   &::-webkit-scrollbar {

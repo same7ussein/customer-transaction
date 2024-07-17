@@ -26,7 +26,10 @@ import { transaction } from '../../interfaces/customers';
 export class CustomerComponent implements OnInit {
   customerTranscations: transaction[] = [];
   filteredTransactions: transaction[] = [];
+  selectedCustomerTransactions: transaction[] = [];
+
   loading: boolean = true;
+  loadingData: boolean = true;
   filter: string = '';
   chartData: any;
   chartOptions: any;
@@ -36,6 +39,7 @@ export class CustomerComponent implements OnInit {
   Avg: number = 0;
   minAmount: number | null = null;
   maxAmount: number | null = null;
+  selectedCustomerName: string = '';
 
   constructor(private CommonService: CommonService) {}
 
@@ -45,6 +49,7 @@ export class CustomerComponent implements OnInit {
 
   getCustomersTransaction(): void {
     this.loading = true;
+    this.loadingData = true;
     this.CommonService.getCustomer().subscribe({
       next: (customerData) => {
         this.CommonService.getTransactions().subscribe({
@@ -67,9 +72,12 @@ export class CustomerComponent implements OnInit {
             this.customerTranscations = updatedTransactions;
             this.filteredTransactions = updatedTransactions;
             this.loading = false;
+            this.loadingData = false;
 
             if (this.customerId !== null) {
+              this.selectedCustomerName = customerMap[this.customerId];
               this.updateChart(this.customerId);
+              this.updateSelectedCustomerTransactions(this.customerId);
             }
           },
           error: (err: HttpErrorResponse) => {
@@ -83,9 +91,12 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  onRowSelect(customerId: number): void {
+  onRowSelect(customerId: number, customerName: string): void {
     this.customerId = customerId;
+    this.selectedCustomerName = customerName;
+
     this.updateChart(customerId);
+    this.updateSelectedCustomerTransactions(customerId);
   }
 
   updateChart(customerId: number): void {
@@ -124,12 +135,6 @@ export class CustomerComponent implements OnInit {
   }
 
   initializeChartOptions(): void {
-    // const documentStyle = getComputedStyle(document.documentElement);
-    // const textColorSecondary = documentStyle.getPropertyValue(
-    //   '--text-color-secondary'
-    // );
-    // const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
     this.chartOptions = {
       maintainAspectRatio: false,
       aspectRatio: 0.6,
@@ -138,26 +143,26 @@ export class CustomerComponent implements OnInit {
           display: true,
         },
       },
-      // scales: {
-      //   x: {
-      //     ticks: {
-      //       color: textColorSecondary,
-      //     },
-      //     grid: {
-      //       color: surfaceBorder,
-      //       drawBorder: false,
-      //     },
-      //   },
-      //   y: {
-      //     ticks: {
-      //       color: textColorSecondary,
-      //     },
-      //     grid: {
-      //       color: surfaceBorder,
-      //       drawBorder: false,
-      //     },
-      //   },
-      // },
+      scales: {
+        x: {
+          ticks: {
+            color: '#ffffff', // Set x-axis tick color to white
+          },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.2)', // Optionally change the grid line color
+            drawBorder: false,
+          },
+        },
+        y: {
+          ticks: {
+            color: '#ffffff', // Set y-axis tick color to white
+          },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.2)', // Optionally change the grid line color
+            drawBorder: false,
+          },
+        },
+      },
     };
   }
 
@@ -173,5 +178,17 @@ export class CustomerComponent implements OnInit {
     } else {
       this.filteredTransactions = this.customerTranscations;
     }
+  }
+  updateSelectedCustomerTransactions(customerId: number): void {
+    const selectedTransactions = this.customerTranscations.filter(
+      (transaction) => transaction.customer_id === customerId
+    );
+
+    this.selectedCustomerTransactions = selectedTransactions;
+    this.TotalAmount = selectedTransactions.reduce(
+      (sum, transaction) => sum + transaction.amount,
+      0
+    );
+    this.Avg = this.TotalAmount / (selectedTransactions.length || 1);
   }
 }
